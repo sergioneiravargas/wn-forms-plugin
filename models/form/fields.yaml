@@ -1,0 +1,52 @@
+fields:
+    name:
+        label: Name
+        span: left
+        type: text
+    subject:
+        label: Subject
+        span: right
+        type: text
+    fields:
+        label: Fields
+        prompt: 'Add new field'
+        span: full
+        type: repeater
+        form:
+            fields:
+                name:
+                    label: Name
+                    span: auto
+                    type: text
+                label:
+                    label: Label
+                    span: auto
+                    type: text
+                placeholder:
+                    label: Placeholder
+                    span: auto
+                    type: text
+                    comment: 'Text to be shown in the input field.'
+                html_tag:
+                    label: 'HTML element tag'
+                    options:
+                        input: input
+                        textarea: textarea
+                    showSearch: true
+                    span: auto
+                    type: dropdown
+                required:
+                    label: Required
+                    span: full
+                    type: switch
+                    comment: 'HTML required attribute'
+                october_validator:
+                    label: 'October validator rules'
+                    span: auto
+                    type: text
+                    comment: 'Validator rules. More info on OctoberCMS docs.'
+                regex_pattern:
+                    label: 'Regex pattern'
+                    span: auto
+                    type: text
+                    comment: 'Validation pattern for frontend use'

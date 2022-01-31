@@ -1,0 +1,50 @@
+{% spaceless %}
+{% set form = __SELF__.form.attributes %}
+<form id="butils-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation" novalidate>
+    <input hidden name="form_id" type="text" value="{{ form.id }}">
+    {% for field in __SELF__.form.fields %}
+    <div class="form-group">
+        {% if field.label %}<label for="{{ field.name }}">{{ field.label }}</label>{% endif %}
+
+        {% if field.html_tag == 'input' %}
+        <input name="{{ field.name }}" type="text"
+               {% if field.placeholder %}placeholder="{{field.placeholder }}"{% endif %}
+               {% if field.required %}required{% endif %}
+               class="form-control">
+
+        {% elseif field.html_tag == 'textarea' %}
+        <textarea name="{{ field.name }}" type="text"
+                  {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+                  {% if field.required %}required{% endif %}
+                  rows="6" class="form-control"></textarea>
+        {% endif %}
+
+        <div class="{{ field.name }}"></div>
+    </div>
+    {% endfor %}
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" data-attach-loading>Send</button>
+    </div>
+    <div id="butils-forms-{{ form.id }}-alert"></div>
+</form>
+{% endspaceless %}
+{% put scripts %}
+{% spaceless %}
+<script>
+    function setInvalidField(fieldValidator, defaultVal = true) {
+        const input = fieldValidator.parentElement.querySelector('input') 
+            ? fieldValidator.parentElement.querySelector('input')
+            : (fieldValidator.parentElement.querySelector('textarea') 
+                ? fieldValidator.parentElement.querySelector('textarea') 
+                : null)
+        ;
+
+        if (defaultVal) {
+            input.classList.add('is-invalid');
+        } else {
+            input.classList.remove('is-invalid');
+        }
+    }
+</script>
+{% endspaceless %}
+{% endput %}

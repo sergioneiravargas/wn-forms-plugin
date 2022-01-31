@@ -1,0 +1,11 @@
+<span class="form-text text-danger">
+{% for error in error_messages %}
+    {{ error }}
+{% endfor %}
+</span>
+<script>
+    setInvalidField(
+        document.querySelector('{{ container_selector }}'),
+        {% if error_messages %}true{% else %}false{% endif %}
+    );
+</script>

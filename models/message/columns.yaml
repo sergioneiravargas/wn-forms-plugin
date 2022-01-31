@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: Id
+        type: number
+        searchable: true
+        sortable: true
+    form_id:
+        label: Form
+        relation: form
+        select: name
+        searchable: true
+        sortable: true
+    received_at:
+        label: 'Reception date'
+        type: datetime
+        searchable: true
+        sortable: true

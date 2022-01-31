@@ -1,0 +1,19 @@
+plugin:
+    name: 'butils.forms::lang.plugin.name'
+    description: 'butils.forms::lang.plugin.description'
+    author: 'Sergio Neira'
+    icon: oc-icon-envelope
+navigation:
+    main-menu-item:
+        label: Forms
+        url: butils/forms/messages
+        icon: icon-life-ring
+        sideMenu:
+            messages:
+                label: Messages
+                url: butils/forms/messages
+                icon: icon-sitemap
+            forms:
+                label: Forms
+                url: butils/forms/forms
+                icon: icon-sitemap

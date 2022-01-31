@@ -1,0 +1,26 @@
+<div id="Form-outsideTabs" class="form-tabless-fields ">
+
+    <div class="form-group form-group-preview widget-field span-full">
+        
+        <div class="data-field">
+            <label><?= ucfirst('subject') ?></label>
+            <span class="form-control">
+                <?= $form->subject ?>
+            </span>
+        </div>
+            
+
+        <div class="data-field">
+            <label><?= ucfirst('content') ?></label>
+            <div 
+                class="data-container form-group form-group-preview text-field span-left">
+                <?php foreach($content as $field_name => $field_value) : ?>
+                    <label><?= ucfirst($field_name) ?></label>
+                    <span class="form-control">
+                        <?= $field_value ?>
+                    </span><br>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+fields:
+    content:
+        span: auto
+        type: formMessageContent
+
