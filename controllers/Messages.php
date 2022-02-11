@@ -30,7 +30,7 @@ class Messages extends Controller
 
     public function sendMessage()
     {
-        // Get input
+        // get input
         $form_id = Input::get('form_id');
 
         if (empty($form_id)) {
@@ -63,7 +63,7 @@ class Messages extends Controller
                 'message' => $validator->messages()->all()[0] ?? 'An error ocurred while sending your request.',
             ];
         } else {
-            // Create object, save and send email
+            // create object, save and send email
             $message = new Message();
 
             $message->form_id = $form_id;

@@ -2,44 +2,34 @@
 
 use Butils\Forms\Models\Form;
 use Butils\Forms\Models\Message;
+use Input;
 
-Route::get('butils/api/forms/forms', function () {
-    return $forms = Form::all();
+Route::get('butils/forms/api/forms', function () {
+    $limit = Input::get('per_page') ?? 20;
+
+    return Form::paginate($limit);
 });
 
-Route::get('butils/api/forms/forms/{id}', function ($id) {
-    $form = Form::find($id);
-    $response = [
-        'id' => $form->id,
-        'fields' => [
-        ],
-    ];
-
-    foreach ($form->fields as $field) {
-        $out = (object) [
-            'name' => $field['name'],
-            'label' => $field['label'],
-            'pattern' => $field['regex_pattern'],
-        ];
-
-        array_push($response['fields'], $out);
-    }
-
-    return $response;
+Route::get('butils/forms/api/forms/{id}', function ($id) {
+    return Form::find($id);
 });
 
-Route::get('butils/api/forms/forms/{id}/fields', function ($id) {
-    $form = new Form();
+Route::get('butils/forms/api/forms/{id}/messages', function ($id) {
+    $limit = Input::get('per_page') ?? 20;
 
-    return $form->getFields($id);
+    return Message::where('form_id', '=', $id)
+        ->paginate($limit)
+    ;
 });
 
-Route::get('butils/api/forms/message', function () {
-    return $message = Message::all();
+Route::get('butils/forms/api/messages', function () {
+    $limit = Input::get('per_page') ?? 20;
+
+    return Message::paginate($limit);
 });
 
-Route::get('butils/api/forms/message/{id}', function ($id) {
-    return $message = Message::find($id);
+Route::get('butils/forms/api/messages/{id}', function ($id) {
+    return Message::find($id);
 });
 
-Route::post('butils/api/forms/message', 'Butils\Forms\Controllers\Messages@sendMessage');
+Route::post('butils/forms/api/messages', 'Butils\Forms\Controllers\Messages@sendMessage');

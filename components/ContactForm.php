@@ -36,7 +36,7 @@ class ContactForm extends ComponentBase
 
     public function onSend()
     {
-        // Get input
+        // get input
         $form_id = Input::get('form_id');
         $received_at = Carbon::now();
 
@@ -51,7 +51,7 @@ class ContactForm extends ComponentBase
             $validator_rules[$input_name] = $field['october_validator'];
         }
 
-        // Validate input values
+        // validate input values
         $validator_messages = [
         ];
 
@@ -65,7 +65,7 @@ class ContactForm extends ComponentBase
                     : 'An error ocurred while sending your request.',
             ];
         } else {
-            // Create object, save and send email
+            // create object, save and send email
             $message = new Message();
 
             $message->form_id = $form_id;
@@ -81,7 +81,7 @@ class ContactForm extends ComponentBase
             ];
         }
 
-        // Render partial that display alerts
+        // render partial view for alerts display
         $form_id_attr = 'butils-forms-'.Form::find($form_id)->id;
 
         $out['#'.$form_id_attr.'-alert'] = $this->renderPartial('contactForm::default-alert.htm', [
@@ -89,7 +89,7 @@ class ContactForm extends ComponentBase
                 'form_id' => $form_id_attr,
             ]);
 
-        // Render partial with field validator
+        // render partial view with field validator
         foreach ($fields as $field) {
             $input_name = $field['name'];
 

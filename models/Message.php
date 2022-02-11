@@ -2,6 +2,7 @@
 
 namespace Butils\Forms\Models;
 
+use Config;
 use Mail;
 use Model;
 
@@ -42,16 +43,19 @@ class Message extends Model
      */
     public function sendMail($mailView = 'butils.forms::mail.default')
     {
-        $messageSubject = Form::find($this->form_id)->subject;
-        $messageContent = [];
+        $subject = Form::find($this->form_id)->subject;
+        $data = [];
 
         foreach ($this->content as $key => $value) {
-            $messageContent[$key] = $value;
+            $data[$key] = $value;
         }
 
-        Mail::send($mailView, $messageContent, function ($message) use ($messageSubject, $messageContent) {
-            $message->subject($messageSubject);
-            $message->data = $messageContent;
-        });
+        foreach (Config::get('mail.butilsMailingList') as $to) {
+            Mail::send($mailView, $data, function ($message) use ($subject, $to, $data) {
+                $message->subject($subject);
+                $message->to($to['address'], $to['name']);
+                $message->data = $data;
+            });
+        }
     }
 }
