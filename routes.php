@@ -2,12 +2,9 @@
 
 use Butils\Forms\Models\Form;
 use Butils\Forms\Models\Message;
-use Input;
 
 Route::get('butils/forms/api/forms', function () {
-    $limit = Input::get('per_page') ?? 20;
-
-    return Form::paginate($limit);
+    return Form::paginate(20);
 });
 
 Route::get('butils/forms/api/forms/{id}', function ($id) {
@@ -15,17 +12,13 @@ Route::get('butils/forms/api/forms/{id}', function ($id) {
 });
 
 Route::get('butils/forms/api/forms/{id}/messages', function ($id) {
-    $limit = Input::get('per_page') ?? 20;
-
     return Message::where('form_id', '=', $id)
-        ->paginate($limit)
+        ->paginate(20)
     ;
 });
 
 Route::get('butils/forms/api/messages', function () {
-    $limit = Input::get('per_page') ?? 20;
-
-    return Message::paginate($limit);
+    return Message::paginate(20);
 });
 
 Route::get('butils/forms/api/messages/{id}', function ($id) {
