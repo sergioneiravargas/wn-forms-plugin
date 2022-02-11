@@ -6,20 +6,20 @@
     <div class="form-group">
         {% if field.label %}<label for="{{ field.name }}">{{ field.label }}</label>{% endif %}
 
-        {% if field.html_tag == 'input' %}
+        {% if field.tag == 'input' %}
         <input name="{{ field.name }}" type="text"
                {% if field.placeholder %}placeholder="{{field.placeholder }}"{% endif %}
                {% if field.required %}required{% endif %}
                class="form-control">
 
-        {% elseif field.html_tag == 'textarea' %}
+        {% elseif field.tag == 'textarea' %}
         <textarea name="{{ field.name }}" type="text"
                   {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
                   {% if field.required %}required{% endif %}
                   rows="6" class="form-control"></textarea>
         {% endif %}
 
-        <div class="{{ field.name }}"></div>
+        <div class="error-message {{ field.name }}"></div>
     </div>
     {% endfor %}
     <div class="form-group">

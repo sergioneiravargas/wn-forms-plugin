@@ -31,31 +31,31 @@ class Messages extends Controller
     public function sendMessage()
     {
         // get input
-        $form_id = Input::get('form_id');
+        $formId = Input::get('form_id');
 
-        if (empty($form_id)) {
-            return ['status' => 'error', 'message' => 'The form_id field is required.'];
+        if (empty($formId)) {
+            return ['status' => 'error', 'message' => 'The formId field is required.'];
         }
 
-        $received_at = Carbon::now();
+        $receivedAt = Carbon::now();
 
         $content = [];
-        $validator_rules = [];
+        $validatorRules = [];
 
-        $fields = Form::find($form_id)->fields;
+        $fields = Form::find($formId)->fields;
 
         foreach ($fields as $field) {
-            $input_name = $field['name'];
+            $inputName = $field['name'];
 
-            $content[$input_name] = Input::get($input_name);
-            $validator_rules[$input_name] = $field['october_validator'];
+            $content[$inputName] = Input::get($inputName);
+            $validatorRules[$inputName] = $field['october_validator'];
 
-            if ($field['required'] && !$content[$input_name]) {
+            if ($field['required'] && !$content[$inputName]) {
                 exit('Error. Please fill all the required inputs.');
             }
         }
 
-        $validator = Validator::make($content, $validator_rules, $validator_messages);
+        $validator = Validator::make($content, $validatorRules, $validator_messages);
 
         if ($validator->fails()) {
             $alert = [
@@ -66,12 +66,12 @@ class Messages extends Controller
             // create object, save and send email
             $message = new Message();
 
-            $message->form_id = $form_id;
-            $message->received_at = $received_at;
+            $message->form_id = $formId;
+            $message->received_at = $receivedAt;
             $message->content = $content;
 
             $message->save();
-            $message->sendMail();
+            $message->mail();
 
             $alert = [
                 'success' => true,

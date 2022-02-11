@@ -41,7 +41,7 @@ class Message extends Model
     /**
      * @param string $mailView
      */
-    public function sendMail($mailView = 'butils.forms::mail.default')
+    public function mail($mailView = 'butils.forms::mail.default')
     {
         $subject = Form::find($this->form_id)->subject;
         $data = [];

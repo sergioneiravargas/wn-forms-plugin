@@ -3,6 +3,7 @@ plugin:
     description: 'butils.forms::lang.plugin.description'
     author: 'Sergio Neira'
     icon: oc-icon-envelope
+    homepage: ''
 navigation:
     main-menu-item:
         label: Forms

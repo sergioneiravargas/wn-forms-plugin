@@ -5,7 +5,7 @@
 </span>
 <script>
     setInvalidField(
-        document.querySelector('{{ container_selector }}'),
+        document.querySelector('{{ html_element_selector }}'),
         {% if error_messages %}true{% else %}false{% endif %}
     );
 </script>

@@ -11,10 +11,10 @@ use Validator;
 
 class ContactForm extends ComponentBase
 {
+    public const HTML_FORM_ID_PREFIX = 'butils-forms-';
+
     public $options;
     public $form;
-    public $fields;
-    public $alert;
 
     public function componentDetails()
     {
@@ -26,82 +26,74 @@ class ContactForm extends ComponentBase
 
     public function onRender()
     {
-        $this->alert = (object) [
-            'type' => 'success',
-            'message' => 'Success message.',
-        ];
-
-        $this->form = Form::find($this->property('formId'));
+        $this->form = Form::find($this->property('form_id'));
     }
 
     public function onSend()
     {
-        // get input
-        $form_id = Input::get('form_id');
-        $received_at = Carbon::now();
+        $this->form = Form::find(Input::get('form_id'));
+
+        $receivedAt = Carbon::now();
 
         $content = [];
-        $validator_rules = [];
+        $validatorRules = [];
 
-        $fields = Form::find(Input::get('form_id'))->fields;
-
-        foreach ($fields as $field) {
-            $input_name = $field['name'];
-            $content[$input_name] = Input::get($input_name);
-            $validator_rules[$input_name] = $field['october_validator'];
+        foreach ($this->form->fields as $field) {
+            $inputName = $field['name'];
+            $content[$inputName] = Input::get($inputName);
+            $validatorRules[$inputName] = $field['october_validator'];
         }
 
         // validate input values
-        $validator_messages = [
-        ];
+        $validator = Validator::make($content, $validatorRules);
 
-        $validator = Validator::make($content, $validator_rules, $validator_messages);
-
-        if ($validator->fails()) {
-            $alert = [
-                'success' => false,
-                'message' => count($validator->messages()->all())
-                    ? 'Please, check the invalid fields.'
-                    : 'An error ocurred while sending your request.',
-            ];
-        } else {
+        if ($isValid = $validator->passes()) {
             // create object, save and send email
             $message = new Message();
 
-            $message->form_id = $form_id;
-            $message->received_at = $received_at;
+            $message->form_id = $this->form->id;
+            $message->received_at = $receivedAt;
             $message->content = $content;
 
             $message->save();
-            $message->sendMail();
 
-            $alert = [
-                'success' => true,
-                'message' => 'Your request has been sent successfully.',
-            ];
+            if ($this->form->should_mail) {
+                $message->mail();
+            }
         }
 
-        // render partial view for alerts display
-        $form_id_attr = 'butils-forms-'.Form::find($form_id)->id;
+        $alert = [
+            'success' => $isValid,
+            'message' => $isValid
+                ? 'Your request has been sent successfully.'
+                : (count($validator->messages()->all())
+                    ? 'Please, check the invalid fields.'
+                    : 'An error ocurred while sending your request.'),
+        ];
 
-        $out['#'.$form_id_attr.'-alert'] = $this->renderPartial('contactForm::default-alert.htm', [
-                'alert' => $alert,
-                'form_id' => $form_id_attr,
-            ]);
+        // render partial view for alerts display
+        $htmlFormId = self::HTML_FORM_ID_PREFIX.$this->form->id;
+        $targetHtmlElement = "#$htmlFormId-alert";
+
+        $viewData[$targetHtmlElement] = $this->renderPartial('contactForm::default-alert.htm', [
+            'html_form_id' => $htmlFormId,
+            'alert' => $alert,
+        ]);
 
         // render partial view with field validator
-        foreach ($fields as $field) {
-            $input_name = $field['name'];
+        foreach ($this->form->fields as $field) {
+            $inputName = $field['name'];
+            $targetHtmlElement = "#$htmlFormId .error-message.$inputName";
 
-            $out['#'.$form_id_attr.' div.'.$input_name] = $this->renderPartial(
+            $viewData[$targetHtmlElement] = $this->renderPartial(
                 'contactForm::default-field-validator.htm',
                 [
-                    'container_selector' => '#'.$form_id_attr.' div.'.$input_name,
-                    'error_messages' => $validator->errors()->get($input_name),
+                    'html_element_selector' => $targetHtmlElement,
+                    'error_messages' => $validator->errors()->get($inputName),
                 ]
             );
         }
 
-        return $out;
+        return $viewData;
     }
 }

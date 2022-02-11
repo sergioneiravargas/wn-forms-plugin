@@ -7,6 +7,11 @@ fields:
         label: Subject
         span: right
         type: text
+    should_mail:
+        label: 'Should mail'
+        span: auto
+        type: switch
+        comment: 'If the message should be sent to the mailing list'
     fields:
         label: Fields
         prompt: 'Add new field'
@@ -18,6 +23,16 @@ fields:
                     label: Name
                     span: auto
                     type: text
+                    comment: 'HTML element name attribute'
+                tag:
+                    label: Tag
+                    options:
+                        input: input
+                        textarea: textarea
+                    showSearch: true
+                    span: auto
+                    type: dropdown
+                    comment: 'HTML element tag'
                 label:
                     label: Label
                     span: auto
@@ -26,27 +41,18 @@ fields:
                     label: Placeholder
                     span: auto
                     type: text
-                    comment: 'Text to be shown in the input field.'
-                html_tag:
-                    label: 'HTML element tag'
-                    options:
-                        input: input
-                        textarea: textarea
-                    showSearch: true
-                    span: auto
-                    type: dropdown
                 required:
                     label: Required
                     span: full
                     type: switch
-                    comment: 'HTML required attribute'
+                    comment: 'HTML required attribute (client-side validation)'
                 october_validator:
                     label: 'Winter validator rules'
                     span: auto
                     type: text
-                    comment: 'Validator rules. More info on WinterCMS docs.'
+                    comment: 'Validator rules (more in Winter docs)'
                 regex_pattern:
                     label: 'Regex pattern'
                     span: auto
                     type: text
-                    comment: 'Validation pattern for frontend use'
+                    comment: 'Validation pattern for other use cases (API client-side validation)'

@@ -27,6 +27,7 @@ class Form extends Model
      */
     public $rules = [
     ];
+
     protected $jsonable = ['fields'];
 
     public $hasMany = [

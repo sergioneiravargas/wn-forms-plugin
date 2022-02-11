@@ -1,12 +1,12 @@
 <div class="alert alert-{% if alert.success %}success{% else %}danger{% endif %}">{{ alert.message }}</div>
 {% if alert.success %}
 <script>
-    document.getElementById("{{ form_id }}")
+    document.getElementById("{{ html_form_id }}")
         .querySelectorAll('input').forEach(element => {
             if (!element.hidden) element.value = null;
         })
     ;
-    document.getElementById("{{ form_id }}")
+    document.getElementById("{{ html_form_id }}")
         .querySelectorAll('textarea').forEach(element => {
             if (!element.hidden) element.value = null;
         })
