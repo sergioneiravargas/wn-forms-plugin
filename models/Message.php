@@ -50,7 +50,7 @@ class Message extends Model
             $data[$key] = $value;
         }
 
-        foreach (Config::get('mail.butilsMailingList') as $to) {
+        foreach (Config::get('mail.butilsMailingList') ?? [] as $to) {
             Mail::send($mailView, $data, function ($message) use ($subject, $to, $data) {
                 $message->subject($subject);
                 $message->to($to['address'], $to['name']);
