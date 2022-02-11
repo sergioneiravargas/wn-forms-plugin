@@ -41,10 +41,10 @@ fields:
                     type: switch
                     comment: 'HTML required attribute'
                 october_validator:
-                    label: 'October validator rules'
+                    label: 'Winter validator rules'
                     span: auto
                     type: text
-                    comment: 'Validator rules. More info on OctoberCMS docs.'
+                    comment: 'Validator rules. More info on WinterCMS docs.'
                 regex_pattern:
                     label: 'Regex pattern'
                     span: auto

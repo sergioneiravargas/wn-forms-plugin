@@ -1,6 +1,6 @@
 {% spaceless %}
 {% set form = __SELF__.form.attributes %}
-<form id="butils-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation" novalidate>
+<form id="butils-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation">
     <input hidden name="form_id" type="text" value="{{ form.id }}">
     {% for field in __SELF__.form.fields %}
     <div class="form-group">
