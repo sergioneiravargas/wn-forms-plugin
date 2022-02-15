@@ -26,6 +26,8 @@ class Form extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'fields.*.name' => 'required',
+        'fields.*.tag' => 'required',
     ];
 
     protected $jsonable = ['fields'];
@@ -33,4 +35,32 @@ class Form extends Model
     public $hasMany = [
         'messages' => ['Butils\Forms\Models\Message'],
     ];
+
+    public function getDropdownOptions($fieldName, $value, $formData)
+    {
+        if ($fieldName == 'tag') {
+            return [
+                '' => 'Select an option',
+                'input' => 'Input',
+                'textarea' => 'Textarea',
+            ];
+        }
+
+        if ($fieldName == 'type') {
+            return  $this->tag === 'input'
+                ? [
+                    'text' => 'Text',
+                    'number' => 'Number',
+                    'email' => 'Email',
+                    'tel' => 'Telephone',
+                    'date' => 'Date',
+                    'datetime-local' => 'Datetime',
+                    'month' => 'Month',
+                    'time' => 'Time',
+                ]
+                : [
+                    '' => ''
+                ];
+        }
+    }
 }

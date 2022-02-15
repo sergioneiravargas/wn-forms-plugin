@@ -7,16 +7,13 @@
         {% if field.label %}<label for="{{ field.name }}">{{ field.label }}</label>{% endif %}
 
         {% if field.tag == 'input' %}
-        <input name="{{ field.name }}" type="text"
-               {% if field.placeholder %}placeholder="{{field.placeholder }}"{% endif %}
-               {% if field.required %}required{% endif %}
-               class="form-control">
+        <input name="{{ field.name }}" {% if field.type %}type="{{ field.type }}" {% endif %} {% if field.pattern
+            %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{field.placeholder }}"
+            {% endif %} {% if field.required %}required{% endif %} class="form-control">
 
         {% elseif field.tag == 'textarea' %}
-        <textarea name="{{ field.name }}" type="text"
-                  {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
-                  {% if field.required %}required{% endif %}
-                  rows="6" class="form-control"></textarea>
+        <textarea name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
+            if field.required %}required{% endif %} rows="6" class="form-control"></textarea>
         {% endif %}
 
         <div class="error-message {{ field.name }}"></div>
@@ -32,12 +29,12 @@
 {% spaceless %}
 <script>
     function setInvalidField(fieldValidator, defaultVal = true) {
-        const input = fieldValidator.parentElement.querySelector('input') 
+        const input = fieldValidator.parentElement.querySelector('input')
             ? fieldValidator.parentElement.querySelector('input')
-            : (fieldValidator.parentElement.querySelector('textarea') 
-                ? fieldValidator.parentElement.querySelector('textarea') 
+            : (fieldValidator.parentElement.querySelector('textarea')
+                ? fieldValidator.parentElement.querySelector('textarea')
                 : null)
-        ;
+            ;
 
         if (defaultVal) {
             input.classList.add('is-invalid');

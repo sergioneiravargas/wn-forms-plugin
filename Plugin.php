@@ -10,7 +10,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'Butils\Forms\Components\ContactForm' => 'contactForm',
+            'Butils\Forms\Components\Form' => 'form',
         ];
     }
 

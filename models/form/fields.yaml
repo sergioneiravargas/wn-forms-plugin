@@ -19,20 +19,6 @@ fields:
         type: repeater
         form:
             fields:
-                name:
-                    label: Name
-                    span: auto
-                    type: text
-                    comment: 'HTML element name attribute'
-                tag:
-                    label: Tag
-                    options:
-                        input: input
-                        textarea: textarea
-                    showSearch: true
-                    span: auto
-                    type: dropdown
-                    comment: 'HTML element tag'
                 label:
                     label: Label
                     span: auto
@@ -41,18 +27,37 @@ fields:
                     label: Placeholder
                     span: auto
                     type: text
+                tag:
+                    label: Tag
+                    showSearch: true
+                    span: auto
+                    type: dropdown
+                    default: ''
+                    comment: 'HTML element tag'
+                name:
+                    label: Name
+                    span: auto
+                    type: text
+                    comment: 'HTML element "name" attribute'
+                type:
+                    label: Type
+                    showSearch: true
+                    span: auto
+                    type: dropdown
+                    dependsOn: tag
+                    comment: 'HTML element "type" attribute'
                 required:
                     label: Required
                     span: full
                     type: switch
-                    comment: 'HTML required attribute (client-side validation)'
-                october_validator:
+                    comment: 'HTML element "required" attribute (client-side validation)'
+                pattern:
+                    label: 'Pattern'
+                    span: auto
+                    type: text
+                    comment: 'HTML element "pattern" attribute (client-side validation)'
+                winter_validator:
                     label: 'Winter validator rules'
                     span: auto
                     type: text
                     comment: 'Validator rules (more in Winter docs)'
-                regex_pattern:
-                    label: 'Regex pattern'
-                    span: auto
-                    type: text
-                    comment: 'Validation pattern for other use cases (API client-side validation)'

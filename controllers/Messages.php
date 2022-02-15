@@ -48,7 +48,7 @@ class Messages extends Controller
             $inputName = $field['name'];
 
             $content[$inputName] = Input::get($inputName);
-            $validatorRules[$inputName] = $field['october_validator'];
+            $validatorRules[$inputName] = $field['winter_validator'];
 
             if ($field['required'] && !$content[$inputName]) {
                 exit('Error. Please fill all the required inputs.');

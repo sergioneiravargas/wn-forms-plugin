@@ -2,14 +2,14 @@
 
 namespace Butils\Forms\Components;
 
-use Butils\Forms\Models\Form;
-use Butils\Forms\Models\Message;
+use Butils\Forms\Models\Form as FormModel;
+use Butils\Forms\Models\Message as MessageModel;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Input;
 use Validator;
 
-class ContactForm extends ComponentBase
+class Form extends ComponentBase
 {
     public const HTML_FORM_ID_PREFIX = 'butils-forms-';
 
@@ -19,19 +19,40 @@ class ContactForm extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Contact',
-            'description' => 'Contact form.',
+            'name' => 'Form',
+            'description' => 'Displays a form.',
         ];
+    }
+
+    public function defineProperties()
+    {
+        return [
+            'formId' => [
+                'title' => 'Form',
+                'description' => 'The form to display',
+                'type' => 'dropdown'
+            ]
+        ];
+    }
+
+    public function getFormIdOptions()
+    {
+        $options = [];
+        foreach (FormModel::all() as $form) {
+            $options[$form->id] = $form->name;
+        }
+
+        return $options;
     }
 
     public function onRender()
     {
-        $this->form = Form::find($this->property('form_id'));
+        $this->form = FormModel::find($this->property('formId'));
     }
 
     public function onSend()
     {
-        $this->form = Form::find(Input::get('form_id'));
+        $this->form = FormModel::find(Input::get('form_id'));
 
         $receivedAt = Carbon::now();
 
@@ -41,7 +62,7 @@ class ContactForm extends ComponentBase
         foreach ($this->form->fields as $field) {
             $inputName = $field['name'];
             $content[$inputName] = Input::get($inputName);
-            $validatorRules[$inputName] = $field['october_validator'];
+            $validatorRules[$inputName] = $field['winter_validator'];
         }
 
         // validate input values
@@ -49,7 +70,7 @@ class ContactForm extends ComponentBase
 
         if ($isValid = $validator->passes()) {
             // create object, save and send email
-            $message = new Message();
+            $message = new MessageModel();
 
             $message->form_id = $this->form->id;
             $message->received_at = $receivedAt;
@@ -72,10 +93,10 @@ class ContactForm extends ComponentBase
         ];
 
         // render partial view for alerts display
-        $htmlFormId = self::HTML_FORM_ID_PREFIX.$this->form->id;
+        $htmlFormId = self::HTML_FORM_ID_PREFIX . $this->form->id;
         $targetHtmlElement = "#$htmlFormId-alert";
 
-        $viewData[$targetHtmlElement] = $this->renderPartial('contactForm::default-alert.htm', [
+        $viewData[$targetHtmlElement] = $this->renderPartial('form::default-alert.htm', [
             'html_form_id' => $htmlFormId,
             'alert' => $alert,
         ]);
@@ -86,7 +107,7 @@ class ContactForm extends ComponentBase
             $targetHtmlElement = "#$htmlFormId .error-message.$inputName";
 
             $viewData[$targetHtmlElement] = $this->renderPartial(
-                'contactForm::default-field-validator.htm',
+                'form::default-field-validator.htm',
                 [
                     'html_element_selector' => $targetHtmlElement,
                     'error_messages' => $validator->errors()->get($inputName),
