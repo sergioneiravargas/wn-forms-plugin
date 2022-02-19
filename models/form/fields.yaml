@@ -32,7 +32,7 @@ fields:
                     showSearch: true
                     span: auto
                     type: dropdown
-                    default: ''
+                    placeholder: "Select the element's tag"
                     comment: 'HTML element tag'
                 name:
                     label: Name
@@ -45,7 +45,33 @@ fields:
                     span: auto
                     type: dropdown
                     dependsOn: tag
+                    placeholder: "Select the element's type"
                     comment: 'HTML element "type" attribute'
+                    required: true
+                    trigger:
+                        action: show
+                        condition: value[input]
+                        field: tag
+                options:
+                    label: Options
+                    prompt: 'Add new option'
+                    span: full
+                    type: repeater
+                    dependsOn: tag
+                    trigger:
+                        action: show
+                        condition: value[select]
+                        field: tag
+                    form:
+                        fields:
+                            label:
+                                label: Label
+                                span: auto
+                                type: text
+                            value:
+                                label: Value
+                                span: auto
+                                type: text
                 required:
                     label: Required
                     span: full
@@ -60,4 +86,4 @@ fields:
                     label: 'Winter validator rules'
                     span: auto
                     type: text
-                    comment: 'Validator rules (more in Winter docs)'
+                    comment: 'Validator rules (server-side validation)'

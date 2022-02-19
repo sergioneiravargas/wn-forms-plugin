@@ -26,8 +26,13 @@ class Form extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'name' => 'required',
+        'subject' => 'required',
         'fields.*.name' => 'required',
         'fields.*.tag' => 'required',
+        'fields.*.options.*.label' => 'required',
+        'fields.*.options.*.value' => 'required',
+        'fields.*.type' => 'required_if:fields.*.tag,input',
     ];
 
     protected $jsonable = ['fields'];
@@ -43,6 +48,7 @@ class Form extends Model
                 '' => 'Select an option',
                 'input' => 'Input',
                 'textarea' => 'Textarea',
+                'select' => 'Select',
             ];
         }
 
@@ -53,14 +59,28 @@ class Form extends Model
                     'number' => 'Number',
                     'email' => 'Email',
                     'tel' => 'Telephone',
+                    'checkbox' => 'Checkbox',
                     'date' => 'Date',
                     'datetime-local' => 'Datetime',
                     'month' => 'Month',
                     'time' => 'Time',
                 ]
-                : [
-                    '' => ''
-                ];
+                : [];
         }
+    }
+
+    public function beforeSave()
+    {
+        $fields = $this->fields;
+        foreach ($fields as &$field) {
+            if ($field['tag'] !== 'input') {
+                $field['type'] = '';
+            }
+            if ($field['tag'] !== 'select') {
+                $field['options'] = [];
+            }
+        }
+
+        $this->fields = $fields;
     }
 }

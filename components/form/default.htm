@@ -9,11 +9,20 @@
         {% if field.tag == 'input' %}
         <input name="{{ field.name }}" {% if field.type %}type="{{ field.type }}" {% endif %} {% if field.pattern
             %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{field.placeholder }}"
-            {% endif %} {% if field.required %}required{% endif %} class="form-control">
+            {% endif %} {% if field.required %}required{% endif %}
+            class="{% if field.type is same as 'checkbox' %}checkbox{% else %}form-control{% endif %}">
 
         {% elseif field.tag == 'textarea' %}
         <textarea name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
             if field.required %}required{% endif %} rows="6" class="form-control"></textarea>
+
+        {% elseif field.tag == 'select' %}
+        <select name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
+            if field.required %}required{% endif %} rows="6" class="form-control">
+            {% for option in field.options %}
+            <option value="{{ option.value }}">{{ option.label }}</option>
+            {% endfor %}
+        </select>
         {% endif %}
 
         <div class="error-message {{ field.name }}"></div>
