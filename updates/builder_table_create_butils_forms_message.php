@@ -3,7 +3,7 @@
 namespace Butils\Forms\Updates;
 
 use Winter\Storm\Database\Updates\Migration;
-use Schema;
+use Winter\Storm\Support\Facades\Schema;
 
 class BuilderTableCreateButilsFormsMessage extends Migration
 {
