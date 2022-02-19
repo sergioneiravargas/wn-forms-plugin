@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Butils\Forms\Models\Form;
 use Butils\Forms\Models\Message;
 
@@ -13,8 +14,7 @@ Route::get('butils/forms/api/forms/{id}', function ($id) {
 
 Route::get('butils/forms/api/forms/{id}/messages', function ($id) {
     return Message::where('form_id', '=', $id)
-        ->paginate(20)
-    ;
+        ->paginate(20);
 });
 
 Route::get('butils/forms/api/messages', function () {

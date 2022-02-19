@@ -2,8 +2,8 @@
 
 namespace Butils\Forms;
 
-use Backend;
 use System\Classes\PluginBase;
+use Backend\Facades\Backend;
 
 class Plugin extends PluginBase
 {
@@ -24,7 +24,7 @@ class Plugin extends PluginBase
             'messages' => [
                 'label' => 'Forms',
                 'url' => Backend::url('butils/forms/messages'),
-                'icon' => 'icon-envelope',
+                'icon' => 'icon-bars',
                 'sideMenu' => [
                     'messages' => [
                         'label' => 'Messages',
@@ -33,7 +33,7 @@ class Plugin extends PluginBase
                     ],
                     'forms' => [
                         'label' => 'Forms',
-                        'icon' => 'icon-list-ul',
+                        'icon' => 'icon-bars',
                         'url' => Backend::url('butils/forms/forms'),
                     ],
                 ],

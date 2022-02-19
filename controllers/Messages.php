@@ -3,12 +3,12 @@
 namespace Butils\Forms\Controllers;
 
 use Backend\Classes\Controller;
-use BackendMenu;
+use Backend\Facades\BackendMenu;
+use Winter\Storm\Support\Facades\Input;
+use Winter\Storm\Support\Facades\Validator;
 use Butils\Forms\Models\Form;
 use Butils\Forms\Models\Message;
 use Carbon\Carbon;
-use Input;
-use Validator;
 
 class Messages extends Controller
 {
@@ -55,7 +55,7 @@ class Messages extends Controller
             }
         }
 
-        $validator = Validator::make($content, $validatorRules, $validator_messages);
+        $validator = Validator::make($content, $validatorRules);
 
         if ($validator->fails()) {
             $alert = [

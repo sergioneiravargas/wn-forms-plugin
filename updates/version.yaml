@@ -5,6 +5,3 @@
     - builder_table_create_butils_forms_form.php
     - 'Created table butils_forms_message'
     - builder_table_create_butils_forms_message.php
-1.0.3:
-    - 'Updated table butils_forms_form'
-    - builder_table_update_butils_forms_form.php

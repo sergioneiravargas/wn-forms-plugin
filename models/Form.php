@@ -2,14 +2,15 @@
 
 namespace Butils\Forms\Models;
 
-use Model;
+use Winter\Storm\Database\Model;
+use Winter\Storm\Database\Traits\Validation;
 
 /**
  * Model.
  */
 class Form extends Model
 {
-    use \October\Rain\Database\Traits\Validation;
+    use Validation;
 
     /*
      * Disable timestamps by default.
@@ -38,7 +39,7 @@ class Form extends Model
     protected $jsonable = ['fields'];
 
     public $hasMany = [
-        'messages' => ['Butils\Forms\Models\Message'],
+        'messages' => ['Butils\Forms\Models\Message', 'delete' => true],
     ];
 
     public function getDropdownOptions($fieldName, $value, $formData)
@@ -53,7 +54,7 @@ class Form extends Model
         }
 
         if ($fieldName == 'type') {
-            return  $this->tag === 'input'
+            return  isset($formData->tag) && $formData->tag === 'input'
                 ? [
                     'text' => 'Text',
                     'number' => 'Number',

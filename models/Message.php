@@ -2,16 +2,17 @@
 
 namespace Butils\Forms\Models;
 
-use Config;
-use Mail;
-use Model;
+use Winter\Storm\Database\Model;
+use Winter\Storm\Database\Traits\Validation;
+use Winter\Storm\Support\Facades\Mail;
+use Winter\Storm\Support\Facades\Config;
 
 /**
  * Model.
  */
 class Message extends Model
 {
-    use \October\Rain\Database\Traits\Validation;
+    use Validation;
 
     protected $jsonable = [
         'content',
@@ -31,8 +32,7 @@ class Message extends Model
     /**
      * @var array Validation rules
      */
-    public $rules = [
-    ];
+    public $rules = [];
 
     public $belongsTo = [
         'form' => ['Butils\Forms\Models\Form'],

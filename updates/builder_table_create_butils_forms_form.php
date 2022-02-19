@@ -2,7 +2,7 @@
 
 namespace Butils\Forms\Updates;
 
-use October\Rain\Database\Updates\Migration;
+use Winter\Storm\Database\Updates\Migration;
 use Schema;
 
 class BuilderTableCreateButilsFormsForm extends Migration
@@ -15,6 +15,7 @@ class BuilderTableCreateButilsFormsForm extends Migration
             $table->string('name');
             $table->string('subject');
             $table->text('fields')->nullable();
+            $table->boolean('should_mail')->default(0);
         });
     }
 

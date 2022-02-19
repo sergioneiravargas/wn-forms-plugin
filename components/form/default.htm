@@ -8,9 +8,9 @@
 
         {% if field.tag == 'input' %}
         <input name="{{ field.name }}" {% if field.type %}type="{{ field.type }}" {% endif %} {% if field.pattern
-            %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{field.placeholder }}"
+            %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{ field.placeholder }}"
             {% endif %} {% if field.required %}required{% endif %}
-            class="{% if field.type is same as 'checkbox' %}checkbox{% else %}form-control{% endif %}">
+            class="{% if field.type == 'checkbox' %}checkbox{% else %}form-control{% endif %}">
 
         {% elseif field.tag == 'textarea' %}
         <textarea name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
@@ -19,6 +19,9 @@
         {% elseif field.tag == 'select' %}
         <select name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
             if field.required %}required{% endif %} rows="6" class="form-control">
+            [% if field.placeholder %]
+            <option disabled selected>{{ field.placeholder }}</option>
+            [% endif %]
             {% for option in field.options %}
             <option value="{{ option.value }}">{{ option.label }}</option>
             {% endfor %}
@@ -42,8 +45,9 @@
             ? fieldValidator.parentElement.querySelector('input')
             : (fieldValidator.parentElement.querySelector('textarea')
                 ? fieldValidator.parentElement.querySelector('textarea')
-                : null)
-            ;
+                : (fieldValidator.parentElement.querySelector('select')
+                    ? fieldValidator.parentElement.querySelector('select')
+                    : null));
 
         if (defaultVal) {
             input.classList.add('is-invalid');

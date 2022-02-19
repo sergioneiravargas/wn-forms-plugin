@@ -3,7 +3,7 @@
 namespace Butils\Forms\Controllers;
 
 use Backend\Classes\Controller;
-use BackendMenu;
+use Backend\Facades\BackendMenu;
 
 class Forms extends Controller
 {
