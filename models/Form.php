@@ -1,6 +1,6 @@
 <?php
 
-namespace Butils\Forms\Models;
+namespace Sntools\Forms\Models;
 
 use Winter\Storm\Database\Model;
 use Winter\Storm\Database\Traits\Validation;
@@ -21,7 +21,7 @@ class Form extends Model
     /**
      * @var string the database table used by the model
      */
-    public $table = 'butils_forms_form';
+    public $table = 'sntools_forms_form';
 
     /**
      * @var array Validation rules
@@ -39,7 +39,7 @@ class Form extends Model
     protected $jsonable = ['fields'];
 
     public $hasMany = [
-        'messages' => ['Butils\Forms\Models\Message', 'delete' => true],
+        'messages' => ['Sntools\Forms\Models\Message', 'delete' => true],
     ];
 
     public function getDropdownOptions($fieldName, $value, $formData)

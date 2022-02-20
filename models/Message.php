@@ -1,6 +1,6 @@
 <?php
 
-namespace Butils\Forms\Models;
+namespace Sntools\Forms\Models;
 
 use Winter\Storm\Database\Model;
 use Winter\Storm\Database\Traits\Validation;
@@ -27,7 +27,7 @@ class Message extends Model
     /**
      * @var string the database table used by the model
      */
-    public $table = 'butils_forms_message';
+    public $table = 'sntools_forms_message';
 
     /**
      * @var array Validation rules
@@ -35,13 +35,13 @@ class Message extends Model
     public $rules = [];
 
     public $belongsTo = [
-        'form' => ['Butils\Forms\Models\Form'],
+        'form' => ['Sntools\Forms\Models\Form'],
     ];
 
     /**
      * @param string $mailView
      */
-    public function mail($mailView = 'butils.forms::mail.default')
+    public function mail($mailView = 'sntools.forms::mail.default')
     {
         $subject = Form::find($this->form_id)->subject;
         $data = [];
@@ -50,7 +50,7 @@ class Message extends Model
             $data[$key] = $value;
         }
 
-        foreach (Config::get('mail.butilsMailingList') ?? [] as $to) {
+        foreach (Config::get('mail.sntoolsMailingList') ?? [] as $to) {
             Mail::send($mailView, $data, function ($message) use ($subject, $to, $data) {
                 $message->subject($subject);
                 $message->to($to['address'], $to['name']);

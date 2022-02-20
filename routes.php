@@ -1,28 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Butils\Forms\Models\Form;
-use Butils\Forms\Models\Message;
+use Sntools\Forms\Models\Form;
+use Sntools\Forms\Models\Message;
 
-Route::get('butils/forms/api/forms', function () {
+Route::get('sntools/forms/api/forms', function () {
     return Form::paginate(20);
 });
 
-Route::get('butils/forms/api/forms/{id}', function ($id) {
+Route::get('sntools/forms/api/forms/{id}', function ($id) {
     return Form::find($id);
 });
 
-Route::get('butils/forms/api/forms/{id}/messages', function ($id) {
+Route::get('sntools/forms/api/forms/{id}/messages', function ($id) {
     return Message::where('form_id', '=', $id)
         ->paginate(20);
 });
 
-Route::get('butils/forms/api/messages', function () {
+Route::get('sntools/forms/api/messages', function () {
     return Message::paginate(20);
 });
 
-Route::get('butils/forms/api/messages/{id}', function ($id) {
+Route::get('sntools/forms/api/messages/{id}', function ($id) {
     return Message::find($id);
 });
 
-Route::post('butils/forms/api/messages', 'Butils\Forms\Controllers\Messages@sendMessage');
+Route::post('sntools/forms/api/messages', 'Sntools\Forms\Controllers\Messages@sendMessage');

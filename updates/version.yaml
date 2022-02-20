@@ -1,7 +1,7 @@
 1.0.1:
     - 'Initialize plugin.'
 1.0.2:
-    - 'Created table butils_forms_form'
-    - builder_table_create_butils_forms_form.php
-    - 'Created table butils_forms_message'
-    - builder_table_create_butils_forms_message.php
+    - 'Created table sntools_forms_form'
+    - builder_table_create_sntools_forms_form.php
+    - 'Created table sntools_forms_message'
+    - builder_table_create_sntools_forms_message.php

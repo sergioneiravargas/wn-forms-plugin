@@ -1,4 +1,4 @@
 title: Forms
-modelClass: Butils\Forms\Models\Form
+modelClass: Sntools\Forms\Models\Form
 toolbar:
     buttons: reorder_toolbar

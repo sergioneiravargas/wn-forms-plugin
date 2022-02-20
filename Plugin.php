@@ -1,6 +1,6 @@
 <?php
 
-namespace Butils\Forms;
+namespace Sntools\Forms;
 
 use System\Classes\PluginBase;
 use Backend\Facades\Backend;
@@ -10,7 +10,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'Butils\Forms\Components\Form' => 'form',
+            'Sntools\Forms\Components\Form' => 'form',
         ];
     }
 
@@ -23,18 +23,18 @@ class Plugin extends PluginBase
         return [
             'messages' => [
                 'label' => 'Forms',
-                'url' => Backend::url('butils/forms/messages'),
+                'url' => Backend::url('sntools/forms/messages'),
                 'icon' => 'icon-bars',
                 'sideMenu' => [
                     'messages' => [
                         'label' => 'Messages',
                         'icon' => 'icon-envelope',
-                        'url' => Backend::url('butils/forms/messages'),
+                        'url' => Backend::url('sntools/forms/messages'),
                     ],
                     'forms' => [
                         'label' => 'Forms',
                         'icon' => 'icon-bars',
-                        'url' => Backend::url('butils/forms/forms'),
+                        'url' => Backend::url('sntools/forms/forms'),
                     ],
                 ],
             ],
@@ -44,7 +44,7 @@ class Plugin extends PluginBase
     public function registerFormWidgets()
     {
         return [
-            'Butils\Forms\FormWidgets\FormMessageContent' => [
+            'Sntools\Forms\FormWidgets\FormMessageContent' => [
                 'label' => 'FormMessageContent field',
                 'code' => 'formMessageContent',
             ],
@@ -54,11 +54,11 @@ class Plugin extends PluginBase
     public function registerPermissions()
     {
         return [
-            'butils.forms.developer' => [
+            'sntools.forms.developer' => [
                 'label' => 'Manage forms',
                 'tab' => 'Forms',
             ],
-            'butils.forms.user' => [
+            'sntools.forms.user' => [
                 'label' => 'Check messages',
                 'tab' => 'Forms',
             ],

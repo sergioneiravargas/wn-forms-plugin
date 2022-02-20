@@ -1,13 +1,13 @@
 name: Messages
-form: $/butils/forms/models/message/fields.yaml
-modelClass: Butils\Forms\Models\Message
-defaultRedirect: butils/forms/messages
+form: $/sntools/forms/models/message/fields.yaml
+modelClass: Sntools\Forms\Models\Message
+defaultRedirect: sntools/forms/messages
 create:
-    redirect: 'butils/forms/messages/update/:id'
-    redirectClose: butils/forms/messages
+    redirect: 'sntools/forms/messages/update/:id'
+    redirectClose: sntools/forms/messages
 update:
-    redirect: butils/forms/messages
-    redirectClose: butils/forms/messages
+    redirect: sntools/forms/messages
+    redirectClose: sntools/forms/messages
 preview:
-    redirect: butils/forms/messages
-    redirectClose: butils/forms/messages
+    redirect: sntools/forms/messages
+    redirectClose: sntools/forms/messages

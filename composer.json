@@ -1,0 +1,15 @@
+{
+    "name": "sntools/wn-forms-plugin",
+    "description": "WinterCMS plugin for dynamic form creation",
+    "type": "winter-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergio Neira Vargas",
+            "email": "sh.neiravargas@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2"
+    }
+}

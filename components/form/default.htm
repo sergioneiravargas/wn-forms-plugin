@@ -1,6 +1,7 @@
 {% spaceless %}
 {% set form = __SELF__.form.attributes %}
-<form id="butils-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation">
+<form id="sntools-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation"
+    data-browser-validate>
     <input hidden name="form_id" type="text" value="{{ form.id }}">
     {% for field in __SELF__.form.fields %}
     <div class="form-group">
@@ -34,7 +35,7 @@
     <div class="form-group">
         <button class="btn btn-primary" type="submit" data-attach-loading>Send</button>
     </div>
-    <div id="butils-forms-{{ form.id }}-alert"></div>
+    <div id="sntools-forms-{{ form.id }}-alert"></div>
 </form>
 {% endspaceless %}
 {% put scripts %}

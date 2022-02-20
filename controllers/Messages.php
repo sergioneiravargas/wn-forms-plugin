@@ -1,13 +1,13 @@
 <?php
 
-namespace Butils\Forms\Controllers;
+namespace Sntools\Forms\Controllers;
 
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;
 use Winter\Storm\Support\Facades\Input;
 use Winter\Storm\Support\Facades\Validator;
-use Butils\Forms\Models\Form;
-use Butils\Forms\Models\Message;
+use Sntools\Forms\Models\Form;
+use Sntools\Forms\Models\Message;
 use Carbon\Carbon;
 
 class Messages extends Controller
@@ -20,12 +20,12 @@ class Messages extends Controller
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
-    public $requiredPermissions = ['butils.forms.developer', 'butils.forms.user'];
+    public $requiredPermissions = ['sntools.forms.developer', 'sntools.forms.user'];
 
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Butils.Forms', 'messages', 'messages');
+        BackendMenu::setContext('Sntools.Forms', 'messages', 'messages');
     }
 
     public function sendMessage()

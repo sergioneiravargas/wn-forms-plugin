@@ -1,15 +1,15 @@
 <?php
 
-namespace Butils\Forms\Updates;
+namespace Sntools\Forms\Updates;
 
 use Winter\Storm\Database\Updates\Migration;
 use Winter\Storm\Support\Facades\Schema;
 
-class BuilderTableCreateButilsFormsForm extends Migration
+class BuilderTableCreateSntoolsFormsForm extends Migration
 {
     public function up()
     {
-        Schema::create('butils_forms_form', function ($table) {
+        Schema::create('sntools_forms_form', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name');
@@ -21,6 +21,6 @@ class BuilderTableCreateButilsFormsForm extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('butils_forms_form');
+        Schema::dropIfExists('sntools_forms_form');
     }
 }

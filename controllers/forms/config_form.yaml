@@ -1,10 +1,10 @@
 name: Forms
-form: $/butils/forms/models/form/fields.yaml
-modelClass: Butils\Forms\Models\Form
-defaultRedirect: butils/forms/forms
+form: $/sntools/forms/models/form/fields.yaml
+modelClass: Sntools\Forms\Models\Form
+defaultRedirect: sntools/forms/forms
 create:
-    redirect: 'butils/forms/forms/update/:id'
-    redirectClose: butils/forms/forms
+    redirect: 'sntools/forms/forms/update/:id'
+    redirectClose: sntools/forms/forms
 update:
-    redirect: butils/forms/forms
-    redirectClose: butils/forms/forms
+    redirect: sntools/forms/forms
+    redirectClose: sntools/forms/forms

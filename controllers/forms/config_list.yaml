@@ -1,5 +1,5 @@
-list: $/butils/forms/models/form/columns.yaml
-modelClass: Butils\Forms\Models\Form
+list: $/sntools/forms/models/form/columns.yaml
+modelClass: Sntools\Forms\Models\Form
 title: Forms
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'butils/forms/forms/update/:id'
+recordUrl: 'sntools/forms/forms/update/:id'

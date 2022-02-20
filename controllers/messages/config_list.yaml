@@ -1,5 +1,5 @@
-list: $/butils/forms/models/message/columns.yaml
-modelClass: Butils\Forms\Models\Message
+list: $/sntools/forms/models/message/columns.yaml
+modelClass: Sntools\Forms\Models\Message
 title: Messages
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
@@ -10,4 +10,4 @@ toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
 
-recordUrl: 'butils/forms/messages/preview/:id'
+recordUrl: 'sntools/forms/messages/preview/:id'

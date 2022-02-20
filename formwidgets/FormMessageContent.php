@@ -1,9 +1,9 @@
 <?php
 
-namespace Butils\Forms\FormWidgets;
+namespace Sntools\Forms\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-use Butils\Forms\Models\Message;
+use Sntools\Forms\Models\Message;
 
 class FormMessageContent extends FormWidgetBase
 {

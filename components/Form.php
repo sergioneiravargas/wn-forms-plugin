@@ -1,17 +1,17 @@
 <?php
 
-namespace Butils\Forms\Components;
+namespace Sntools\Forms\Components;
 
 use Cms\Classes\ComponentBase;
 use Winter\Storm\Support\Facades\Input;
 use Winter\Storm\Support\Facades\Validator;
-use Butils\Forms\Models\Form as FormModel;
-use Butils\Forms\Models\Message as MessageModel;
+use Sntools\Forms\Models\Form as FormModel;
+use Sntools\Forms\Models\Message as MessageModel;
 use Carbon\Carbon;
 
 class Form extends ComponentBase
 {
-    public const HTML_FORM_ID_PREFIX = 'butils-forms-';
+    public const HTML_FORM_ID_PREFIX = 'sntools-forms-';
 
     public $options;
     public $form;
