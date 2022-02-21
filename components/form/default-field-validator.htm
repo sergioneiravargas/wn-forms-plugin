@@ -1,11 +1,7 @@
+{% spaceless %}
 <span class="form-text text-danger">
-{% for error in error_messages %}
+    {% for error in error_messages %}
     {{ error }}
-{% endfor %}
+    {% endfor %}
 </span>
-<script>
-    setInvalidField(
-        document.querySelector('{{ html_element_selector }}'),
-        {% if error_messages %}true{% else %}false{% endif %}
-    );
-</script>
+{% endspaceless %}

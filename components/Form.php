@@ -8,6 +8,7 @@ use Winter\Storm\Support\Facades\Validator;
 use Sntools\Forms\Models\Form as FormModel;
 use Sntools\Forms\Models\Message as MessageModel;
 use Carbon\Carbon;
+use Lang;
 
 class Form extends ComponentBase
 {
@@ -48,6 +49,9 @@ class Form extends ComponentBase
     public function onRender()
     {
         $this->form = FormModel::find($this->property('formId'));
+        $this->page['texts'] = [
+            'submitButton' => Lang::get('sntools.forms::lang.formComponent.submitButton')
+        ];
     }
 
     public function onSend()
@@ -66,7 +70,10 @@ class Form extends ComponentBase
         }
 
         // validate input values
-        $validator = Validator::make($content, $validatorRules);
+        $validator = Validator::make(
+            $content,
+            $validatorRules
+        );
 
         if ($isValid = $validator->passes()) {
             // create object, save and send email
@@ -86,11 +93,13 @@ class Form extends ComponentBase
         $alert = [
             'success' => $isValid,
             'message' => $isValid
-                ? 'Your request has been sent successfully.'
+                ? Lang::get('sntools.forms::lang.formComponent.successAlert')
                 : (count($validator->messages()->all())
-                    ? 'Please, check the invalid fields.'
-                    : 'An error ocurred while sending your request.'),
+                    ? Lang::get('sntools.forms::lang.formComponent.invalidAlert')
+                    : Lang::get('sntools.forms::lang.formComponent.failedAlert')),
         ];
+
+        $viewData['alert'] = $alert;
 
         // render partial view for alerts display
         $htmlFormId = self::HTML_FORM_ID_PREFIX . $this->form->id;

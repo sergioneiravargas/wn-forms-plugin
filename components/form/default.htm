@@ -1,7 +1,6 @@
 {% spaceless %}
 {% set form = __SELF__.form.attributes %}
-<form id="sntools-forms-{{ form.id }}" method="POST" data-request="onSend" class="needs-validation"
-    data-browser-validate>
+<form id="sntools-forms-{{ form.id }}" method="POST" onsubmit="sendSntoolsForm(event);" class="needs-validation" data-browser-validate>
     <input hidden name="form_id" type="text" value="{{ form.id }}">
     {% for field in __SELF__.form.fields %}
     <div class="form-group">
@@ -9,9 +8,7 @@
 
         {% if field.tag == 'input' %}
         <input name="{{ field.name }}" {% if field.type %}type="{{ field.type }}" {% endif %} {% if field.pattern
-            %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{ field.placeholder }}"
-            {% endif %} {% if field.required %}required{% endif %}
-            class="{% if field.type == 'checkbox' %}checkbox{% else %}form-control{% endif %}">
+            %}pattern="{{ field.pattern }}" {% endif %} {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {% if field.required %}required{% endif %} class="{% if field.type == 'checkbox' %}checkbox{% else %}form-control{% endif %}">
 
         {% elseif field.tag == 'textarea' %}
         <textarea name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
@@ -21,7 +18,7 @@
         <select name="{{ field.name }}" {% if field.placeholder %}placeholder="{{ field.placeholder }}" {% endif %} {%
             if field.required %}required{% endif %} rows="6" class="form-control">
             [% if field.placeholder %]
-            <option disabled selected>{{ field.placeholder }}</option>
+            <option disabled selected value="0">{{ field.placeholder }}</option>
             [% endif %]
             {% for option in field.options %}
             <option value="{{ option.value }}">{{ option.label }}</option>
@@ -33,7 +30,7 @@
     </div>
     {% endfor %}
     <div class="form-group">
-        <button class="btn btn-primary" type="submit" data-attach-loading>Send</button>
+        <button class="btn btn-primary" type="submit" data-attach-loading>{{ texts['submitButton'] }}</button>
     </div>
     <div id="sntools-forms-{{ form.id }}-alert"></div>
 </form>
@@ -41,20 +38,28 @@
 {% put scripts %}
 {% spaceless %}
 <script>
-    function setInvalidField(fieldValidator, defaultVal = true) {
-        const input = fieldValidator.parentElement.querySelector('input')
-            ? fieldValidator.parentElement.querySelector('input')
-            : (fieldValidator.parentElement.querySelector('textarea')
-                ? fieldValidator.parentElement.querySelector('textarea')
-                : (fieldValidator.parentElement.querySelector('select')
-                    ? fieldValidator.parentElement.querySelector('select')
-                    : null));
+    function sendSntoolsForm(event) {
+        Snowboard.request('#sntools-forms-{{ form.id }}', 'onSend', {
+            success: (data) => {
+                if (!data.alert.success) {
+                    return;
+                }
+                document.getElementById("sntools-forms-{{ form.id }}")
+                    .querySelectorAll('input').forEach(element => {
+                        if (!element.hidden) element.value = null;
+                    });
+                document.getElementById("sntools-forms-{{ form.id }}")
+                    .querySelectorAll('textarea').forEach(element => {
+                        if (!element.hidden) element.value = null;
+                    });
+                document.getElementById("sntools-forms-{{ form.id }}")
+                    .querySelectorAll('select').forEach(element => {
+                        if (!element.hidden) element.value = 0;
+                    });
+            }
+        });
 
-        if (defaultVal) {
-            input.classList.add('is-invalid');
-        } else {
-            input.classList.remove('is-invalid');
-        }
+        event.preventDefault();
     }
 </script>
 {% endspaceless %}
