@@ -87,3 +87,8 @@ fields:
                     span: auto
                     type: text
                     comment: 'Validator rules (server-side validation)'
+                extra_data:
+                    label: 'Extra data'
+                    span: full
+                    type: text
+                    comment: 'Extra data for custom use cases'

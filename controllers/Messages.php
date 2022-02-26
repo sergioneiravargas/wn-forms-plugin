@@ -74,10 +74,7 @@ class Messages extends Controller
             $message->save();
             $message->mail();
 
-            $alert = [
-                'success' => true,
-                'message' => 'Your request has been sent successfully.',
-            ];
+            $alert = ['success' => true];
         }
 
         return $alert;
