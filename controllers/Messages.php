@@ -34,7 +34,12 @@ class Messages extends Controller
         $formId = Input::get('form_id');
 
         if (empty($formId)) {
-            return ['status' => 'error', 'message' => 'The formId field is required.'];
+            return [
+                'success' => false,
+                'messages' => [
+                    'form_id' => 'The "form_id" field is required.',
+                ]
+            ];
         }
 
         $receivedAt = Carbon::now();
@@ -49,10 +54,6 @@ class Messages extends Controller
 
             $content[$inputName] = Input::get($inputName);
             $validatorRules[$inputName] = $field['winter_validator'];
-
-            if ($field['required'] && !$content[$inputName]) {
-                exit('Error. Please fill all the required inputs.');
-            }
         }
 
         $validator = Validator::make($content, $validatorRules);
@@ -60,7 +61,7 @@ class Messages extends Controller
         if ($validator->fails()) {
             $alert = [
                 'success' => false,
-                'message' => $validator->messages()->all()[0] ?? 'An error ocurred while sending your request.',
+                'messages' => $validator->errors(),
             ];
         } else {
             // create object, save and send email
